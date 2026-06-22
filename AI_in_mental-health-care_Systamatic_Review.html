@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI in Mental Health Care - Presentation</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+
+        :root {
+            --bg-color: #0d1117;
+            --slide-bg: #161b22;
+            --text-main: #e6edf3;
+            --text-muted: #8b949e;
+            --accent: #58a6ff;
+            --accent-glow: rgba(88, 166, 255, 0.2);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Presentation Container */
+        .presentation-container {
+            width: 1280px;
+            height: 720px;
+            background-color: var(--slide-bg);
+            border: 1px solid #30363d;
+            border-radius: 12px;
+            position: relative;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* Slide Content */
+        .slide {
+            display: none;
+            flex-direction: column;
+            padding: 60px 80px;
+            height: 100%;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        .slide.active {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Typography */
+        h1 {
+            font-size: 56px;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        h2 {
+            font-size: 42px;
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 30px;
+            border-bottom: 2px solid var(--accent-glow);
+            padding-bottom: 15px;
+        }
+
+        h3 {
+            font-size: 28px;
+            color: #c9d1d9;
+            margin-top: 20px;
+            margin-bottom: 15px;
+        }
+
+        p {
+            font-size: 24px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            color: #c9d1d9;
+        }
+
+        ul {
+            margin-left: 40px;
+            margin-bottom: 20px;
+        }
+
+        li {
+            font-size: 22px;
+            line-height: 1.6;
+            margin-bottom: 12px;
+            color: #c9d1d9;
+        }
+
+        .cite {
+            font-size: 16px;
+            color: var(--text-muted);
+            vertical-align: super;
+        }
+
+        /* Layout Utilities */
+        .center-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            text-align: center;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            height: 100%;
+        }
+
+        /* Navigation Controls */
+        .controls {
+            position: absolute;
+            bottom: 30px;
+            right: 40px;
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .slide-counter {
+            font-size: 18px;
+            color: var(--text-muted);
+            margin-right: 15px;
+        }
+
+        button {
+            background-color: transparent;
+            border: 2px solid var(--text-muted);
+            color: var(--text-main);
+            padding: 10px 20px;
+            font-size: 18px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+        }
+
+        button:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            background-color: var(--accent-glow);
+        }
+
+        button:disabled {
+            border-color: #30363d;
+            color: #30363d;
+            cursor: not-allowed;
+            background-color: transparent;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="presentation-container">
+        
+        <div class="slide active" id="slide-1">
+            <div class="center-content">
+                <h1>Artificial Intelligence in Mental Health Care</h1>
+                <h2>A Systematic Review</h2>
+                <p>Applications in Diagnosis, Monitoring, and Intervention</p>
+                <br><br>
+                <p style="color: var(--text-muted); font-size: 20px;">Source: Cruz-Gonzalez et al. (2025), <i>Psychological Medicine</i> <span class="cite"></span></p>
+                <p style="color: var(--text-muted); font-size: 20px;">Presenter: [Your Name]</p>
+            </div>
+        </div>
+
+        <div class="slide" id="slide-2">
+            <h2>Introduction to AI in Mental Health</h2>
+            <ul>
+                <li><strong>Defining AI & ML:</strong> Artificial Intelligence interprets external data, learns, and adapts <span class="cite"></span>. Machine Learning uses advanced probabilistic methods to build predictive systems <span class="cite"></span>.</li>
+                <li><strong>The Driving Need:</strong> There is a rising global demand for accurate diagnosis, continuous monitoring, and effective interventions in mental health <span class="cite"></span>.</li>
+                <li><strong>The COVID-19 Catalyst:</strong> The pandemic intensified this demand, causing a worldwide increase in depressive symptoms, anxiety, and distress <span class="cite"></span>.</li>
+                <li><strong>The Promise of AI:</strong> AI presents a solution to address resource constraints by enabling early detection, remote assessments, and scalable solutions <span class="cite"></span>.</li>
+            </ul>
+        </div>
+
+        <div class="slide" id="slide-3">
+            <h2>Rationale and Objectives of the Review</h2>
+            <ul>
+                <li><strong>The Core Problem:</strong> AI advancements are hampered by difficulties in obtaining high-quality data, fragmented formats, security concerns, and the belief that clinical judgment outweighs quantitative measures <span class="cite"></span>.</li>
+                <li><strong>Study Objective:</strong> To analyze the current status of AI across three critical domains: diagnosis, monitoring, and intervention <span class="cite"></span>.</li>
+                <li><strong>Research Questions:</strong> 
+                    <ul>
+                        <li>How is AI practically used to diagnose illnesses, monitor progression, and conduct interventions? <span class="cite"></span></li>
+                        <li>What are the limitations, technical challenges, and ethical concerns surrounding these applications? <span class="cite"></span></li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <div class="slide" id="slide-4">
+            <h2>Systematic Review Methodology & Scope</h2>
+            <ul>
+                <li><strong>Rigorous Methodology:</strong> Conducted following PRISMA guidelines and registered on PROSPERO <span class="cite"></span>.</li>
+                <li><strong>Database Search:</strong> Scanned CINAHL, CCRT, PubMed, PsycINFO, and Scopus up to August 2024 <span class="cite"></span>.</li>
+                <li><strong>Study Selection:</strong> From an initial 842 retrieved studies, 85 relevant studies were included <span class="cite"></span>.</li>
+                <li><strong>Domain Breakdown:</strong>
+                    <ul>
+                        <li>Diagnosis: 32 studies <span class="cite"></span>.</li>
+                        <li>Monitoring: 39 studies <span class="cite"></span>.</li>
+                        <li>Intervention: 13 studies <span class="cite"></span>.</li>
+                    </ul>
+                </li>
+                <li><strong>Quality Assessment:</strong> 58.8% of the reviewed studies were rated as "good" using NHLBI tools, strengthening the conclusions <span class="cite"></span>.</li>
+            </ul>
+        </div>
+
+        <div class="slide" id="slide-5">
+            <div class="center-content">
+                <h1 style="color: var(--text-main); font-size: 80px;">Domain 1</h1>
+                <h2 style="border: none; font-size: 50px;">Diagnosis</h2>
+                <p>Early Detection and Predictive Risk Assessment</p>
+            </div>
+        </div>
+
+        <div class="slide" id="slide-6">
+            <h2>Domain 1: Diagnosis (Overview & Algorithms)</h2>
+            <div class="two-column">
+                <div>
+                    <h3>Scope & Targets</h3>
+                    <ul>
+                        <li><strong>Definition:</strong> Detecting mental health disorders, predicting risk, and identifying features (excluding mere classification of previously diagnosed groups) <span class="cite"></span>.</li>
+                        <li><strong>Target Population:</strong> 327,625 individuals across 32 studies <span class="cite"></span>.</li>
+                        <li><strong>Primary Conditions:</strong> Depression, schizophrenia, and suicide risk <span class="cite"></span>.</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Primary Algorithms</h3>
+                    <ul>
+                        <li><strong>Support Vector Machine (SVM):</strong> Maximizes margins between different classes, handling complex linear/nonlinear data <span class="cite"></span>.</li>
+                        <li><strong>Random Forest (RF):</strong> Aggregates multiple decision trees to improve predictive accuracy and reduce overfitting <span class="cite"></span>.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide" id="slide-7">
+            <h2>Domain 1: Diagnosis (Findings & Performance)</h2>
+            <ul>
+                <li><strong>Diverse Data Inputs:</strong> Predictors included electronic health records, MRI/EEG scans, speech variables, and biomarkers (like plasma proteomics) <span class="cite"></span>.</li>
+                <li><strong>Overall Efficacy:</strong> Machine learning achieved satisfactory to good performance, with accuracy ranging from 51% to 97.54% <span class="cite"></span>.</li>
+                <li><strong>The "Variable Paradox":</strong> Increasing the number of predictors did not automatically increase predictive power <span class="cite"></span>.</li>
+                <li><strong>Optimal Selection:</strong> One study found that using more than 15 variables did not significantly improve accuracy, underscoring the critical need for targeted variable selection over complex volume <span class="cite"></span>.</li>
+            </ul>
+        </div>
+
+        <div class="slide" id="slide-8">
+            <div class="center-content">
+                <h1 style="color: var(--text-main); font-size: 80px;">Domain 2</h1>
+                <h2 style="border: none; font-size: 50px;">Monitoring</h2>
+                <p>Prognosis and Treatment Effectiveness</p>
+            </div>
+        </div>
+
+        <div class="slide" id="slide-9">
+            <h2>Domain 2: Monitoring (Overview & Objectives)</h2>
+            <ul>
+                <li><strong>Definition:</strong> Using AI to predict the ongoing prognosis of a disorder or to monitor the direct effects of treatment <span class="cite"></span>.</li>
+                <li><strong>Scale of Research:</strong> The most heavily researched domain, containing 40 studies and a cumulative participant count of 168,077 <span class="cite"></span>.</li>
+                <li><strong>Primary Focus:</strong>
+                    <ul>
+                        <li>Most studies (22 of 40) focused specifically on monitoring depression <span class="cite"></span>.</li>
+                        <li>The main objective (25 of 40 studies) was predicting treatment effectiveness/response <span class="cite"></span>.</li>
+                    </ul>
+                </li>
+                <li><strong>Treatments Monitored:</strong> Pharmacological (SSRIs, ketamine), psychotherapy (CBT), and repetitive transcranial magnetic stimulation (rTMS) <span class="cite"></span>.</li>
+            </ul>
+        </div>
+
+        <div class="slide" id="slide-10">
+            <h2>Domain 2: Monitoring (Algorithms & Predictors)</h2>
+            <div class="two-column">
+                <div>
+                    <h3>Algorithms Utilized</h3>
+                    <p>Exclusively relied on Machine Learning, particularly:</p>
+                    <ul>
+                        <li>Random Forest <span class="cite"></span></li>
+                        <li>Support Vector Machine <span class="cite"></span></li>
+                        <li>Elastic Net Regularization (combines LASSO and ridge regression penalties) <span class="cite"></span></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3>Key Predictors (Inputs)</h3>
+                    <ul>
+                        <li><strong>Clinical/Demographic:</strong> Standardized severity scales (HDRS, MADRS, PHQ-9) and medication history <span class="cite"></span>.</li>
+                        <li><strong>Passive Sensing:</strong> Smartphone call logs, step/sleep data <span class="cite"></span>.</li>
+                        <li><strong>Biological:</strong> Acoustic speech features, HRV, SNPs, fMRI, and EEG data <span class="cite"></span>.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="slide" id="slide-11">
+            <h2>Domain 2: Monitoring (Key Findings & Challenges)</h2>
+            <ul>
+                <li><strong>The Baseline Factor:</strong> Baseline symptom severity was repeatedly identified as a critical predictor for long-term treatment outcomes <span class="cite"></span>.</li>
+                <li><strong>Multimodal Triumphs:</strong> AI combining Natural Language Processing (NLP) metrics with clinical scales accurately predicted psilocybin responses for treatment-resistant depression <span class="cite"></span>.</li>
+                <li><strong>Treatment Optimization:</strong> Machine learning effectively predicted the optimal treatment modality and the ideal frequency of CBT sessions <span class="cite"></span>.</li>
+                <li><strong>Unique Challenges:</strong> Overfitting was common due to noisy data <span class="cite"></span>. Furthermore, developing real-time forecasting is difficult because active interventions naturally change future training outcomes <span class="cite"></span>.</li>
+            </ul>
+        </div>
+
+        <div class="slide" id="slide-12">
+            <div class="center-content">
+                <h1 style="color: var(--text-main); font-size: 80px;">Domain 3</h1>
+                <h2 style="border: none; font-size: 50px;">Intervention</h2>
+                <p>Digital Therapeutics and Assistant Tools</p>
+            </div>
+        </div>
+
+        <div class="slide" id="slide-13">
+            <h2>Domain 3: Intervention (Technologies & Effectiveness)</h2>
+            <ul>
+                <li><strong>Definition:</strong> The direct application of AI-assisted tools to actively support or treat populations <span class="cite"></span>.</li>
+                <li><strong>Chatbot Efficacy (Mixed Results):</strong> 10 studies used AI chatbots (delivering CBT/psychoeducation). Results were inconsistent—some significantly reduced symptoms, while others failed to outperform usual care <span class="cite"></span>.</li>
+                <li><strong>Combined Approaches:</strong> Mixing traditional in-person therapy with a mobile AI conversational agent was more effective in reducing stress than using an AI chatbot alone <span class="cite"></span>.</li>
+                <li><strong>Other AI Interventions:</strong> 
+                    <ul>
+                        <li>AI apps using facial recognition significantly improved medication adherence <span class="cite"></span>.</li>
+                        <li>An AI robotic puppy (Aibo) used in isolation units significantly decreased cortisol and increased oxytocin <span class="cite"></span>.</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+
+        <div class="slide" id="slide-14">
+            <h2>Methodological & Technical Limitations</h2>
+            <ul>
+                <li><strong>Dataset Deficiencies:</strong> Insufficient sample sizes and a lack of data diversity were pervasive, leading to imbalanced outcomes and biased algorithmic performance <span class="cite"></span>.</li>
+                <li><strong>The Overfitting Problem:</strong> High-dimensional data combined with limited training samples frequently caused deep learning models to overfit <span class="cite"></span>.</li>
+                <li><strong>Data Subjectivity:</strong> Over-reliance on self-reported variables introduces reporting biases <span class="cite"></span>.</li>
+                <li><strong>Correlation vs. Causation:</strong> While AI uncovers complex correlations, it cannot establish clinical causality <span class="cite"></span>.</li>
+                <li><strong>Lack of External Validation:</strong> Many models tested on retrospective data lacked rigorous external validation on independent samples, severely limiting generalizability <span class="cite"></span>.</li>
+            </ul>
+        </div>
+
+        <div class="slide" id="slide-15">
+            <h2>Ethical Considerations</h2>
+            <ul>
+                <li><strong>Privacy & Consent:</strong> Safeguarding patient privacy is paramount. Researchers agree on the absolute necessity of obtaining informed consent and protecting identifiable information <span class="cite"></span>.</li>
+                <li><strong>The High-Risk Dilemma:</strong> An unresolved challenge remains: balancing strict data privacy with the clinical obligation to intervene when AI detects severe risks, such as active suicidal ideation <span class="cite"></span>.</li>
+                <li><strong>Intervention Safety Protocols:</strong> AI platforms must be programmed to provide immediate crisis support and encourage professional help when users express suicidal intent <span class="cite"></span>.</li>
+                <li><strong>Exaggerating Capabilities:</strong> Clinicians and researchers must exercise caution against overestimating the efficacy of AI models, which can introduce clinical biases and risks <span class="cite"></span>.</li>
+            </ul>
+        </div>
+
+        <div class="slide" id="slide-16">
+            <h2>Future Directions & Conclusion</h2>
+            <ul>
+                <li><strong>Conclusion:</strong> AI holds immense, transformative potential for mental health care, offering a clear pathway toward personalized, precision psychiatry <span class="cite"></span>.</li>
+                <li><strong>Overcoming the "Black Box":</strong> Move beyond standard, opaque machine learning. Adopt data-driven structural learning (like Bayesian networks) to model confounding factors transparently <span class="cite"></span>.</li>
+                <li><strong>Dataset Diversity:</strong> Build larger, more diverse, multimodal datasets to eliminate algorithmic bias <span class="cite"></span>.</li>
+                <li><strong>Mandatory External Validation:</strong> Rigorous external validation on independent, real-world samples must become a standard prerequisite before commercial or clinical deployment <span class="cite"></span>.</li>
+                <li><strong>Ethical Integrity:</strong> Regulatory bodies must enforce strict standards for patient privacy and data security to safeguard ethical integration <span class="cite"></span>.</li>
+            </ul>
+        </div>
+
+        <div class="controls">
+            <div class="slide-counter"><span id="current-slide-num">1</span> / 16</div>
+            <button id="prev-btn" onclick="prevSlide()" disabled>Prev</button>
+            <button id="next-btn" onclick="nextSlide()">Next</button>
+        </div>
+
+    </div>
+
+    <script>
+        let currentSlide = 1;
+        const totalSlides = 16;
+
+        function updateSlider() {
+            // Hide all slides
+            document.querySelectorAll('.slide').forEach(slide => {
+                slide.classList.remove('active');
+            });
+            
+            // Show current slide
+            document.getElementById(`slide-${currentSlide}`).classList.add('active');
+            
+            // Update counter
+            document.getElementById('current-slide-num').innerText = currentSlide;
+            
+            // Update buttons
+            document.getElementById('prev-btn').disabled = currentSlide === 1;
+            document.getElementById('next-btn').disabled = currentSlide === totalSlides;
+        }
+
+        function nextSlide() {
+            if (currentSlide < totalSlides) {
+                currentSlide++;
+                updateSlider();
+            }
+        }
+
+        function prevSlide() {
+            if (currentSlide > 1) {
+                currentSlide--;
+                updateSlider();
+            }
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowRight') nextSlide();
+            if (e.key === 'ArrowLeft') prevSlide();
+        });
+    </script>
+</body>
+</html>
