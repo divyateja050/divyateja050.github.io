@@ -3,433 +3,192 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI in Mental Health Care - Presentation</title>
+    <title>Research Archive | Yekkaluru Divya Teja</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
-
-        :root {
-            --bg-color: #0d1117;
-            --slide-bg: #161b22;
-            --text-main: #e6edf3;
-            --text-muted: #8b949e;
-            --accent: #58a6ff;
-            --accent-glow: rgba(88, 166, 255, 0.2);
+        /* CORE RESET */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'Inter', sans-serif; background-color: #0f172a; color: #f8fafc; min-height: 100vh; display: flex; justify-content: center; background-image: radial-gradient(circle at top center, #1e293b, #0f172a); background-attachment: fixed; }
+        .glow { position: fixed; width: 800px; height: 800px; background: radial-gradient(circle, rgba(56, 189, 248, 0.03) 0%, rgba(15, 23, 42, 0) 60%); top: 0; left: 50%; transform: translateX(-50%); z-index: 0; pointer-events: none; }
+        .container { width: 100%; max-width: 1000px; padding: 60px 20px; z-index: 1; }
+        .header { text-align: left; margin-bottom: 40px; padding-bottom: 20px; border-bottom: 1px solid rgba(255, 255, 255, 0.05); }
+        .header h1 { font-size: 2.2rem; font-weight: 700; margin: 0 0 8px 0; color: #ffffff; }
+        .header p { font-size: 1rem; color: #94a3b8; font-weight: 400; }
+        
+        /* SECRET NAME TRIGGER */
+        .secret-name {
+            cursor: text; /* Looks exactly like normal text when hovering */
+            user-select: none; /* Prevents text from highlighting when double-clicked */
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+        .timeline { position: relative; padding-left: 40px; }
+        .timeline::before { content: ''; position: absolute; top: 0; bottom: 0; left: 11px; width: 2px; background: linear-gradient(to bottom, rgba(56, 189, 248, 0.5), rgba(255, 255, 255, 0.05) 90%); }
+        .timeline-item { position: relative; margin-bottom: 20px; }
+        .timeline-marker { position: absolute; left: -37px; top: 50%; transform: translateY(-50%); width: 16px; height: 16px; border-radius: 50%; background-color: #0f172a; border: 2px solid #38bdf8; box-shadow: 0 0 0 4px rgba(15, 23, 42, 1); transition: all 0.3s ease; z-index: 2; }
+        .timeline-item:hover .timeline-marker { background-color: #38bdf8; box-shadow: 0 0 10px rgba(56, 189, 248, 0.6), 0 0 0 4px rgba(15, 23, 42, 1); }
+        .card { background: rgba(30, 41, 59, 0.6); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 10px; padding: 20px 25px; transition: all 0.2s ease; position: relative; backdrop-filter: blur(10px); display: flex; justify-content: space-between; align-items: center; gap: 20px; }
+        .timeline-item:hover .card { border-color: rgba(56, 189, 248, 0.3); background: rgba(30, 41, 59, 0.9); }
+        .card-info { display: flex; flex-direction: column; justify-content: center; }
+        .date-tag { font-size: 0.75rem; font-weight: 600; color: #38bdf8; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px; }
+        .card h2 { font-size: 1.15rem; font-weight: 600; color: #f8fafc; margin: 0; line-height: 1.3; }
+        .action-group { display: flex; gap: 10px; flex-shrink: 0; }
+        .btn { padding: 8px 16px; border-radius: 5px; font-size: 0.85rem; font-weight: 600; text-decoration: none; transition: all 0.2s ease; display: inline-flex; align-items: center; gap: 6px; }
+        .btn svg { width: 14px; height: 14px; }
+        .btn-primary { background-color: #0ea5e9; color: #ffffff; border: 1px solid #0ea5e9; }
+        .btn-primary:hover { background-color: #0284c7; border-color: #0284c7; }
+        .btn-outline { background-color: transparent; border: 1px solid rgba(255,255,255,0.15); color: #cbd5e1; }
+        .btn-outline:hover { border-color: rgba(255,255,255,0.4); color: #ffffff; background-color: rgba(255,255,255,0.05); }
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            overflow: hidden;
-        }
+        /* SECRET ADMIN PANEL STYLES */
+        #admin-modal { display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(15, 23, 42, 0.9); backdrop-filter: blur(5px); z-index: 10000; justify-content: center; align-items: center; }
+        .admin-box { background: #1e293b; border: 1px solid #38bdf8; padding: 30px; border-radius: 12px; width: 400px; box-shadow: 0 20px 40px rgba(0,0,0,0.5); }
+        .admin-box h3 { margin: 0 0 20px 0; color: #38bdf8; font-size: 1.2rem; text-transform: uppercase; letter-spacing: 1px; }
+        .admin-input { width: 100%; padding: 10px; margin-bottom: 15px; background: #0f172a; border: 1px solid #334155; color: white; border-radius: 5px; }
+        .admin-btn { width: 100%; padding: 10px; background: #38bdf8; color: #0f172a; border: none; font-weight: bold; border-radius: 5px; cursor: pointer; margin-bottom: 10px; }
+        .admin-btn:hover { background: #0ea5e9; }
+        .close-btn { background: transparent; color: #ef4444; border: 1px solid #ef4444; }
+        #status-msg { font-size: 0.85rem; margin-top: 10px; text-align: center; }
 
-        /* Presentation Container */
-        .presentation-container {
-            width: 1280px;
-            height: 720px;
-            background-color: var(--slide-bg);
-            border: 1px solid #30363d;
-            border-radius: 12px;
-            position: relative;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-        }
-
-        /* Slide Content */
-        .slide {
-            display: none;
-            flex-direction: column;
-            padding: 60px 80px;
-            height: 100%;
-            animation: fadeIn 0.4s ease-in-out;
-        }
-
-        .slide.active {
-            display: flex;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Typography */
-        h1 {
-            font-size: 56px;
-            font-weight: 700;
-            color: var(--accent);
-            margin-bottom: 20px;
-            line-height: 1.2;
-        }
-
-        h2 {
-            font-size: 42px;
-            font-weight: 600;
-            color: var(--accent);
-            margin-bottom: 30px;
-            border-bottom: 2px solid var(--accent-glow);
-            padding-bottom: 15px;
-        }
-
-        h3 {
-            font-size: 28px;
-            color: #c9d1d9;
-            margin-top: 20px;
-            margin-bottom: 15px;
-        }
-
-        p {
-            font-size: 24px;
-            line-height: 1.6;
-            margin-bottom: 20px;
-            color: #c9d1d9;
-        }
-
-        ul {
-            margin-left: 40px;
-            margin-bottom: 20px;
-        }
-
-        li {
-            font-size: 22px;
-            line-height: 1.6;
-            margin-bottom: 12px;
-            color: #c9d1d9;
-        }
-
-        .cite {
-            font-size: 16px;
-            color: var(--text-muted);
-            vertical-align: super;
-        }
-
-        /* Layout Utilities */
-        .center-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100%;
-            text-align: center;
-        }
-
-        .two-column {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 50px;
-            height: 100%;
-        }
-
-        /* Navigation Controls */
-        .controls {
-            position: absolute;
-            bottom: 30px;
-            right: 40px;
-            display: flex;
-            gap: 15px;
-            align-items: center;
-        }
-
-        .slide-counter {
-            font-size: 18px;
-            color: var(--text-muted);
-            margin-right: 15px;
-        }
-
-        button {
-            background-color: transparent;
-            border: 2px solid var(--text-muted);
-            color: var(--text-main);
-            padding: 10px 20px;
-            font-size: 18px;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: all 0.2s;
-            font-family: 'Inter', sans-serif;
-            font-weight: 600;
-        }
-
-        button:hover {
-            border-color: var(--accent);
-            color: var(--accent);
-            background-color: var(--accent-glow);
-        }
-
-        button:disabled {
-            border-color: #30363d;
-            color: #30363d;
-            cursor: not-allowed;
-            background-color: transparent;
+        @media (max-width: 768px) {
+            .container { padding: 40px 20px; }
+            .card { flex-direction: column; align-items: flex-start; }
+            .action-group { width: 100%; margin-top: 10px; }
+            .btn { flex: 1; justify-content: center; }
+            .timeline-marker { top: 35px; transform: translateY(0); } 
         }
     </style>
 </head>
 <body>
 
-    <div class="presentation-container">
-        
-        <div class="slide active" id="slide-1">
-            <div class="center-content">
-                <h1>Artificial Intelligence in Mental Health Care</h1>
-                <h2>A Systematic Review</h2>
-                <p>Applications in Diagnosis, Monitoring, and Intervention</p>
-                <br><br>
-                <p style="color: var(--text-muted); font-size: 20px;">Source: Cruz-Gonzalez et al. (2025), <i>Psychological Medicine</i> <span class="cite"></span></p>
-                <p style="color: var(--text-muted); font-size: 20px;">Presenter: [Your Name]</p>
-            </div>
-        </div>
+    <div class="glow"></div>
+    
+    <!-- SECRET ADMIN UI -->
+    <div id="admin-modal">
+        <div class="admin-box">
+            <h3>Repository Uploader</h3>
+            
+            <input type="text" id="repo-name" class="admin-input" placeholder="GitHub Repo (e.g. your-name/repo-name)">
+            
+            <label style="font-size: 12px; color: #94a3b8; margin-bottom: 5px; display:block;">File Name (e.g., presentation-3.html)</label>
+            <input type="text" id="file-name" class="admin-input" placeholder="File name with extension">
+            
+            <label style="font-size: 12px; color: #94a3b8; margin-bottom: 5px; display:block;">Select File</label>
+            <input type="file" id="file-picker" class="admin-input">
+            
+            <input type="password" id="github-token" class="admin-input" placeholder="GitHub Personal Access Token">
+            
+            <button class="admin-btn" onclick="uploadToGitHub()">Upload File to GitHub</button>
+            <button class="admin-btn close-btn" onclick="closeAdmin()">Cancel</button>
 
-        <div class="slide" id="slide-2">
-            <h2>Introduction to AI in Mental Health</h2>
-            <ul>
-                <li><strong>Defining AI & ML:</strong> Artificial Intelligence interprets external data, learns, and adapts <span class="cite"></span>. Machine Learning uses advanced probabilistic methods to build predictive systems <span class="cite"></span>.</li>
-                <li><strong>The Driving Need:</strong> There is a rising global demand for accurate diagnosis, continuous monitoring, and effective interventions in mental health <span class="cite"></span>.</li>
-                <li><strong>The COVID-19 Catalyst:</strong> The pandemic intensified this demand, causing a worldwide increase in depressive symptoms, anxiety, and distress <span class="cite"></span>.</li>
-                <li><strong>The Promise of AI:</strong> AI presents a solution to address resource constraints by enabling early detection, remote assessments, and scalable solutions <span class="cite"></span>.</li>
-            </ul>
+            <div id="status-msg"></div>
         </div>
-
-        <div class="slide" id="slide-3">
-            <h2>Rationale and Objectives of the Review</h2>
-            <ul>
-                <li><strong>The Core Problem:</strong> AI advancements are hampered by difficulties in obtaining high-quality data, fragmented formats, security concerns, and the belief that clinical judgment outweighs quantitative measures <span class="cite"></span>.</li>
-                <li><strong>Study Objective:</strong> To analyze the current status of AI across three critical domains: diagnosis, monitoring, and intervention <span class="cite"></span>.</li>
-                <li><strong>Research Questions:</strong> 
-                    <ul>
-                        <li>How is AI practically used to diagnose illnesses, monitor progression, and conduct interventions? <span class="cite"></span></li>
-                        <li>What are the limitations, technical challenges, and ethical concerns surrounding these applications? <span class="cite"></span></li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-
-        <div class="slide" id="slide-4">
-            <h2>Systematic Review Methodology & Scope</h2>
-            <ul>
-                <li><strong>Rigorous Methodology:</strong> Conducted following PRISMA guidelines and registered on PROSPERO <span class="cite"></span>.</li>
-                <li><strong>Database Search:</strong> Scanned CINAHL, CCRT, PubMed, PsycINFO, and Scopus up to August 2024 <span class="cite"></span>.</li>
-                <li><strong>Study Selection:</strong> From an initial 842 retrieved studies, 85 relevant studies were included <span class="cite"></span>.</li>
-                <li><strong>Domain Breakdown:</strong>
-                    <ul>
-                        <li>Diagnosis: 32 studies <span class="cite"></span>.</li>
-                        <li>Monitoring: 39 studies <span class="cite"></span>.</li>
-                        <li>Intervention: 13 studies <span class="cite"></span>.</li>
-                    </ul>
-                </li>
-                <li><strong>Quality Assessment:</strong> 58.8% of the reviewed studies were rated as "good" using NHLBI tools, strengthening the conclusions <span class="cite"></span>.</li>
-            </ul>
-        </div>
-
-        <div class="slide" id="slide-5">
-            <div class="center-content">
-                <h1 style="color: var(--text-main); font-size: 80px;">Domain 1</h1>
-                <h2 style="border: none; font-size: 50px;">Diagnosis</h2>
-                <p>Early Detection and Predictive Risk Assessment</p>
-            </div>
-        </div>
-
-        <div class="slide" id="slide-6">
-            <h2>Domain 1: Diagnosis (Overview & Algorithms)</h2>
-            <div class="two-column">
-                <div>
-                    <h3>Scope & Targets</h3>
-                    <ul>
-                        <li><strong>Definition:</strong> Detecting mental health disorders, predicting risk, and identifying features (excluding mere classification of previously diagnosed groups) <span class="cite"></span>.</li>
-                        <li><strong>Target Population:</strong> 327,625 individuals across 32 studies <span class="cite"></span>.</li>
-                        <li><strong>Primary Conditions:</strong> Depression, schizophrenia, and suicide risk <span class="cite"></span>.</li>
-                    </ul>
-                </div>
-                <div>
-                    <h3>Primary Algorithms</h3>
-                    <ul>
-                        <li><strong>Support Vector Machine (SVM):</strong> Maximizes margins between different classes, handling complex linear/nonlinear data <span class="cite"></span>.</li>
-                        <li><strong>Random Forest (RF):</strong> Aggregates multiple decision trees to improve predictive accuracy and reduce overfitting <span class="cite"></span>.</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <div class="slide" id="slide-7">
-            <h2>Domain 1: Diagnosis (Findings & Performance)</h2>
-            <ul>
-                <li><strong>Diverse Data Inputs:</strong> Predictors included electronic health records, MRI/EEG scans, speech variables, and biomarkers (like plasma proteomics) <span class="cite"></span>.</li>
-                <li><strong>Overall Efficacy:</strong> Machine learning achieved satisfactory to good performance, with accuracy ranging from 51% to 97.54% <span class="cite"></span>.</li>
-                <li><strong>The "Variable Paradox":</strong> Increasing the number of predictors did not automatically increase predictive power <span class="cite"></span>.</li>
-                <li><strong>Optimal Selection:</strong> One study found that using more than 15 variables did not significantly improve accuracy, underscoring the critical need for targeted variable selection over complex volume <span class="cite"></span>.</li>
-            </ul>
-        </div>
-
-        <div class="slide" id="slide-8">
-            <div class="center-content">
-                <h1 style="color: var(--text-main); font-size: 80px;">Domain 2</h1>
-                <h2 style="border: none; font-size: 50px;">Monitoring</h2>
-                <p>Prognosis and Treatment Effectiveness</p>
-            </div>
-        </div>
-
-        <div class="slide" id="slide-9">
-            <h2>Domain 2: Monitoring (Overview & Objectives)</h2>
-            <ul>
-                <li><strong>Definition:</strong> Using AI to predict the ongoing prognosis of a disorder or to monitor the direct effects of treatment <span class="cite"></span>.</li>
-                <li><strong>Scale of Research:</strong> The most heavily researched domain, containing 40 studies and a cumulative participant count of 168,077 <span class="cite"></span>.</li>
-                <li><strong>Primary Focus:</strong>
-                    <ul>
-                        <li>Most studies (22 of 40) focused specifically on monitoring depression <span class="cite"></span>.</li>
-                        <li>The main objective (25 of 40 studies) was predicting treatment effectiveness/response <span class="cite"></span>.</li>
-                    </ul>
-                </li>
-                <li><strong>Treatments Monitored:</strong> Pharmacological (SSRIs, ketamine), psychotherapy (CBT), and repetitive transcranial magnetic stimulation (rTMS) <span class="cite"></span>.</li>
-            </ul>
-        </div>
-
-        <div class="slide" id="slide-10">
-            <h2>Domain 2: Monitoring (Algorithms & Predictors)</h2>
-            <div class="two-column">
-                <div>
-                    <h3>Algorithms Utilized</h3>
-                    <p>Exclusively relied on Machine Learning, particularly:</p>
-                    <ul>
-                        <li>Random Forest <span class="cite"></span></li>
-                        <li>Support Vector Machine <span class="cite"></span></li>
-                        <li>Elastic Net Regularization (combines LASSO and ridge regression penalties) <span class="cite"></span></li>
-                    </ul>
-                </div>
-                <div>
-                    <h3>Key Predictors (Inputs)</h3>
-                    <ul>
-                        <li><strong>Clinical/Demographic:</strong> Standardized severity scales (HDRS, MADRS, PHQ-9) and medication history <span class="cite"></span>.</li>
-                        <li><strong>Passive Sensing:</strong> Smartphone call logs, step/sleep data <span class="cite"></span>.</li>
-                        <li><strong>Biological:</strong> Acoustic speech features, HRV, SNPs, fMRI, and EEG data <span class="cite"></span>.</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <div class="slide" id="slide-11">
-            <h2>Domain 2: Monitoring (Key Findings & Challenges)</h2>
-            <ul>
-                <li><strong>The Baseline Factor:</strong> Baseline symptom severity was repeatedly identified as a critical predictor for long-term treatment outcomes <span class="cite"></span>.</li>
-                <li><strong>Multimodal Triumphs:</strong> AI combining Natural Language Processing (NLP) metrics with clinical scales accurately predicted psilocybin responses for treatment-resistant depression <span class="cite"></span>.</li>
-                <li><strong>Treatment Optimization:</strong> Machine learning effectively predicted the optimal treatment modality and the ideal frequency of CBT sessions <span class="cite"></span>.</li>
-                <li><strong>Unique Challenges:</strong> Overfitting was common due to noisy data <span class="cite"></span>. Furthermore, developing real-time forecasting is difficult because active interventions naturally change future training outcomes <span class="cite"></span>.</li>
-            </ul>
-        </div>
-
-        <div class="slide" id="slide-12">
-            <div class="center-content">
-                <h1 style="color: var(--text-main); font-size: 80px;">Domain 3</h1>
-                <h2 style="border: none; font-size: 50px;">Intervention</h2>
-                <p>Digital Therapeutics and Assistant Tools</p>
-            </div>
-        </div>
-
-        <div class="slide" id="slide-13">
-            <h2>Domain 3: Intervention (Technologies & Effectiveness)</h2>
-            <ul>
-                <li><strong>Definition:</strong> The direct application of AI-assisted tools to actively support or treat populations <span class="cite"></span>.</li>
-                <li><strong>Chatbot Efficacy (Mixed Results):</strong> 10 studies used AI chatbots (delivering CBT/psychoeducation). Results were inconsistent—some significantly reduced symptoms, while others failed to outperform usual care <span class="cite"></span>.</li>
-                <li><strong>Combined Approaches:</strong> Mixing traditional in-person therapy with a mobile AI conversational agent was more effective in reducing stress than using an AI chatbot alone <span class="cite"></span>.</li>
-                <li><strong>Other AI Interventions:</strong> 
-                    <ul>
-                        <li>AI apps using facial recognition significantly improved medication adherence <span class="cite"></span>.</li>
-                        <li>An AI robotic puppy (Aibo) used in isolation units significantly decreased cortisol and increased oxytocin <span class="cite"></span>.</li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
-
-        <div class="slide" id="slide-14">
-            <h2>Methodological & Technical Limitations</h2>
-            <ul>
-                <li><strong>Dataset Deficiencies:</strong> Insufficient sample sizes and a lack of data diversity were pervasive, leading to imbalanced outcomes and biased algorithmic performance <span class="cite"></span>.</li>
-                <li><strong>The Overfitting Problem:</strong> High-dimensional data combined with limited training samples frequently caused deep learning models to overfit <span class="cite"></span>.</li>
-                <li><strong>Data Subjectivity:</strong> Over-reliance on self-reported variables introduces reporting biases <span class="cite"></span>.</li>
-                <li><strong>Correlation vs. Causation:</strong> While AI uncovers complex correlations, it cannot establish clinical causality <span class="cite"></span>.</li>
-                <li><strong>Lack of External Validation:</strong> Many models tested on retrospective data lacked rigorous external validation on independent samples, severely limiting generalizability <span class="cite"></span>.</li>
-            </ul>
-        </div>
-
-        <div class="slide" id="slide-15">
-            <h2>Ethical Considerations</h2>
-            <ul>
-                <li><strong>Privacy & Consent:</strong> Safeguarding patient privacy is paramount. Researchers agree on the absolute necessity of obtaining informed consent and protecting identifiable information <span class="cite"></span>.</li>
-                <li><strong>The High-Risk Dilemma:</strong> An unresolved challenge remains: balancing strict data privacy with the clinical obligation to intervene when AI detects severe risks, such as active suicidal ideation <span class="cite"></span>.</li>
-                <li><strong>Intervention Safety Protocols:</strong> AI platforms must be programmed to provide immediate crisis support and encourage professional help when users express suicidal intent <span class="cite"></span>.</li>
-                <li><strong>Exaggerating Capabilities:</strong> Clinicians and researchers must exercise caution against overestimating the efficacy of AI models, which can introduce clinical biases and risks <span class="cite"></span>.</li>
-            </ul>
-        </div>
-
-        <div class="slide" id="slide-16">
-            <h2>Future Directions & Conclusion</h2>
-            <ul>
-                <li><strong>Conclusion:</strong> AI holds immense, transformative potential for mental health care, offering a clear pathway toward personalized, precision psychiatry <span class="cite"></span>.</li>
-                <li><strong>Overcoming the "Black Box":</strong> Move beyond standard, opaque machine learning. Adopt data-driven structural learning (like Bayesian networks) to model confounding factors transparently <span class="cite"></span>.</li>
-                <li><strong>Dataset Diversity:</strong> Build larger, more diverse, multimodal datasets to eliminate algorithmic bias <span class="cite"></span>.</li>
-                <li><strong>Mandatory External Validation:</strong> Rigorous external validation on independent, real-world samples must become a standard prerequisite before commercial or clinical deployment <span class="cite"></span>.</li>
-                <li><strong>Ethical Integrity:</strong> Regulatory bodies must enforce strict standards for patient privacy and data security to safeguard ethical integration <span class="cite"></span>.</li>
-            </ul>
-        </div>
-
-        <div class="controls">
-            <div class="slide-counter"><span id="current-slide-num">1</span> / 16</div>
-            <button id="prev-btn" onclick="prevSlide()" disabled>Prev</button>
-            <button id="next-btn" onclick="nextSlide()">Next</button>
-        </div>
-
     </div>
 
+    <div class="container">
+        <!-- HEADER WITH SECRET TRIGGER ON NAME -->
+        <div class="header">
+            <h1>Research Archive</h1>
+            <p><span class="secret-name" ondblclick="openAdmin()">Yekkaluru Divya Teja</span> • Master Presentation Directory</p>
+        </div>
+
+        <!-- TIMELINE LIST -->
+        <div class="timeline">
+
+            <!-- ITEM 1 -->
+            <div class="timeline-item">
+                <div class="timeline-marker"></div>
+                <div class="card">
+                    <div class="card-info">
+                        <div class="date-tag">June 2026</div>
+                        <h2>AI-Driven Tools for Detecting & Monitoring Mental Health</h2>
+                    </div>
+                    <div class="action-group">
+                        <a href="presentation-1.html" class="btn btn-primary"> View Slides </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ITEM 2 -->
+            <div class="timeline-item">
+                <div class="timeline-marker" style="border-color: #a78bfa;"></div>
+                <div class="card">
+                    <div class="card-info">
+                        <div class="date-tag" style="color: #a78bfa;">May 2026</div>
+                        <h2>Predictive Modeling in Mental Health Disorders</h2>
+                    </div>
+                    <div class="action-group">
+                        <a href="presentation-2.html" class="btn btn-primary" style="background-color: #8b5cf6; border-color: #8b5cf6;"> View Slides </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- ADMIN LOGIC -->
     <script>
-        let currentSlide = 1;
-        const totalSlides = 16;
-
-        function updateSlider() {
-            // Hide all slides
-            document.querySelectorAll('.slide').forEach(slide => {
-                slide.classList.remove('active');
-            });
-            
-            // Show current slide
-            document.getElementById(`slide-${currentSlide}`).classList.add('active');
-            
-            // Update counter
-            document.getElementById('current-slide-num').innerText = currentSlide;
-            
-            // Update buttons
-            document.getElementById('prev-btn').disabled = currentSlide === 1;
-            document.getElementById('next-btn').disabled = currentSlide === totalSlides;
+        function openAdmin() {
+            document.getElementById('admin-modal').style.display = 'flex';
         }
 
-        function nextSlide() {
-            if (currentSlide < totalSlides) {
-                currentSlide++;
-                updateSlider();
+        function closeAdmin() {
+            document.getElementById('admin-modal').style.display = 'none';
+            document.getElementById('status-msg').innerText = '';
+        }
+
+        async function uploadToGitHub() {
+            const repo = document.getElementById('repo-name').value;
+            const path = document.getElementById('file-name').value;
+            const token = document.getElementById('github-token').value;
+            const fileInput = document.getElementById('file-picker');
+            const statusMsg = document.getElementById('status-msg');
+
+            if (!repo || !path || !token || !fileInput.files[0]) {
+                statusMsg.style.color = '#ef4444';
+                statusMsg.innerText = "Please fill out all fields.";
+                return;
             }
-        }
 
-        function prevSlide() {
-            if (currentSlide > 1) {
-                currentSlide--;
-                updateSlider();
-            }
-        }
+            statusMsg.style.color = '#38bdf8';
+            statusMsg.innerText = "Encoding file...";
 
-        // Keyboard navigation
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowRight') nextSlide();
-            if (e.key === 'ArrowLeft') prevSlide();
-        });
+            const file = fileInput.files[0];
+            const reader = new FileReader();
+
+            reader.onload = async function(event) {
+                const base64Content = event.target.result.split(',')[1];
+                statusMsg.innerText = "Uploading to GitHub...";
+
+                try {
+                    const response = await fetch(`https://api.github.com/repos/${repo}/contents/${path}`, {
+                        method: 'PUT',
+                        headers: {
+                            'Authorization': `token ${token}`,
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            message: `Add ${path} via Admin Portal`,
+                            content: base64Content
+                        })
+                    });
+
+                    if (response.ok) {
+                        statusMsg.style.color = '#10b981';
+                        statusMsg.innerText = "Upload Successful! Give GitHub a minute to update.";
+                        setTimeout(closeAdmin, 3000);
+                    } else {
+                        const err = await response.json();
+                        statusMsg.style.color = '#ef4444';
+                        statusMsg.innerText = "Error: " + err.message;
+                    }
+                } catch (error) {
+                    statusMsg.style.color = '#ef4444';
+                    statusMsg.innerText = "Upload failed. Check your internet or token.";
+                }
+            };
+
+            reader.readAsDataURL(file);
+        }
     </script>
 </body>
 </html>
