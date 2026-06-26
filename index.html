@@ -94,9 +94,9 @@
     </div>
 
     <script>
-        const GITHUB_USER = "YOUR_USERNAME"; // <-- UPDATE THIS
-        const MAIN_REPO = "YOUR_PORTFOLIO_REPO"; // <-- UPDATE THIS
-
+        const GITHUB_USER = "divyateja050"; // <-- UPDATE THIS
+        const MAIN_REPO = "divyateja050.github.io"; 
+        
         async function loadTimeline() {
             const res = await fetch(`https://raw.githubusercontent.com/${GITHUB_USER}/${MAIN_REPO}/main/data.json?t=${Date.now()}`);
             const data = await res.json();
