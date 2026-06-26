@@ -67,7 +67,11 @@
         <div class="admin-box">
             <h3>Repository Uploader</h3>
             
-            <input type="text" id="repo-name" class="admin-input" placeholder="GitHub Repo (e.g. your-name/repo-name)">
+            <label>Target Repository</label>
+            <select id="repo-name" class="admin-input">
+                <option value="your-username/mental-health-repo">Mental Health AI</option>
+                <option value="your-username/embedded-systems-repo">Embedded Systems</option>
+            </select>
             
             <label style="font-size: 12px; color: #94a3b8; margin-bottom: 5px; display:block;">File Name (e.g., presentation-3.html)</label>
             <input type="text" id="file-name" class="admin-input" placeholder="File name with extension">
